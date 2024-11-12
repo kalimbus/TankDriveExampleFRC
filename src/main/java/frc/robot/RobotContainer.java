@@ -19,9 +19,6 @@ import frc.robot.subsystems.drivetrain;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final drivetrain m_drive = new drivetrain();
-  public static final Encoder m_leftEncoder = new Encoder(0, 1);
-  public static final Encoder m_rightEncoder = new Encoder(0, 2);
-  public static final Encoder m_gyro = new Encoder(0, 3);
   public static final XboxController maindriver = new XboxController(0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

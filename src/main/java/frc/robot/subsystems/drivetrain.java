@@ -13,12 +13,22 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class drivetrain extends SubsystemBase {
+  // The location of the robot
+  Vector2d m_pose = (0, 0);
+
   /** Creates a new drivetrain. */
   WPI_TalonFX leftmotor = new WPI_TalonFX(23);
   WPI_TalonFX rightmotor = new WPI_TalonFX(21);
   WPI_TalonFX slaveleft = new WPI_TalonFX(24);
   WPI_TalonFX slaveright = new WPI_TalonFX(22);
 
+  // Encoders and gryo
+  Encoder m_leftEncoder = new Encoder(0, 1);
+  Encoder m_rightEncoder = new Encoder(0, 2);
+  ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+
+  public DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(m_gyro.getRawAxis(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance())
+  
   public DifferentialDrive AARobot = new DifferentialDrive(leftmotor,rightmotor);
 
   public drivetrain() {
@@ -68,5 +78,10 @@ public class drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    // Update the pose
+    m_pose = m_odometry.Update(gyro.getRawAxis,
+      m_leftEncoder.getDistance(),
+      m_rightEncoder.getDistance())
   }
 }
